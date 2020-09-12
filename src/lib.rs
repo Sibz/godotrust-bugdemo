@@ -9,7 +9,12 @@ pub struct BugTest {}
 impl BugTest {
     #[export]
     fn _ready(&self, _owner: &RigidBody) {
-        godot_print!("hello movement!");
+        // Notice here _owner.add_central_force is not hinted
+        // (or any of the methods available on RigidBody or other inherited traits)
+
+        _owner.add_central_force(Vector3::new(0f32, 1f32, 0f32));
+
+        godot_print!("hello Bug");
     }
     fn new(_owner: &RigidBody) -> Self {
         BugTest {}
